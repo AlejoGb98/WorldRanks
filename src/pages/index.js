@@ -20,22 +20,27 @@ export default function Home({res}) {
   //API res reasign and useState
   useEffect( () => {
     if (res && res.length > 0){
-      const orderByPop = [...res].sort((a,b) => b.population - a.population )
+      const orderByPop = [...res].sort((a,b) => b.population - a.population ) 
+      setOriginalRes(orderByPop)
       setNewRes(orderByPop)
-      //console.log("Array ordenado", orderByPop)
     } 
   }, []) 
 
+  //Original response of Api to restart
+  const [originalRes, setOriginalRes] = useState()
+
+  //The response of filters that will be maped and showed
   const [newRes, setNewRes] = useState()
 
-  const [resInUse, setResInUse] = useState(newRes)
+  //The response that will acumulate infore be showed
+  const [resToUse, setResToUse] = useState(res)
 
 
   //Array that save the Continents to filter countries
   const [filteredByContinent, setFilteredByContinent] = useState([]);
   
   
-  const [savedRegionFilter, setSavedRegionFilter] = useState([])
+  const [savedRegionFilter, setSavedRegionFilter] = useState('Population')
 
   //Status of Independent and United Nations checkboxes
   const [independentCheck, setIndependentCheck] = useState(false)
@@ -44,26 +49,32 @@ export default function Home({res}) {
   //Filter by region options
   const regionFilter = (filterValue) => {
     setIsLoading(true)
-    if(filterValue === 'Population')
-      {
-        const newArrayFiltered = [...newRes].sort((a,b) => b.population - a.population )
-        setNewRes(newArrayFiltered)
-      } else if( filterValue === 'Name')
-      {
-        const newArrayFiltered = [...newRes].sort((a,b) => a.name.common < b.name.common ?  -1 : 1)
-        setNewRes(newArrayFiltered)
-      } else if(filterValue === 'Area (km²)')
-      {
-        const newArrayFiltered = [...newRes].sort((a,b) => b.area - a.area )
-        setNewRes(newArrayFiltered)
-      }
 
+      if(filterValue === 'Population')
+        {
+          const newArrayFiltered = [...resToUse].sort((a,b) => b.population - a.population )
+          setNewRes(newArrayFiltered)
+        } else if( filterValue === 'Name')
+        {
+          const newArrayFiltered = [...resToUse].sort((a,b) => a.name.common < b.name.common ?  -1 : 1)
+          setNewRes(newArrayFiltered)
+        } else if(filterValue === 'Area (km²)')
+        {
+          const newArrayFiltered = [...resToUse].sort((a,b) => b.area - a.area )
+          setNewRes(newArrayFiltered)
+        }
+    
+    
       setSavedRegionFilter(filterValue)
 
       setTimeout( () => {
         setIsLoading(false)
       }, 1000)
   }
+
+  useEffect(() => {
+    regionFilter(savedRegionFilter)
+  },[resToUse])
 
   //Filter by continents on the component
   const continentFilter = filterValue => {
@@ -79,21 +90,21 @@ export default function Home({res}) {
        
       }
     })
-    setNewRes(res)
+    setResToUse(originalRes)
   }
     
   useEffect(() => {
     setIsLoading(true)
 
-    if(filteredByContinent.length > 0){
-      setNewRes( () => {
-        const filteredCountries = newRes.filter((country) => {
+    if(filteredByContinent?.length > 0){
+      setResToUse(() => {
+        const filteredCountries = originalRes.filter((country) => {
           return filteredByContinent.some((continent) => continent === country.region);
         });
         return(filteredCountries)
       })
     }
-    
+
     //regionFilter(savedRegionFilter)
     setTimeout( () => {
       setIsLoading(false)
@@ -182,7 +193,7 @@ export default function Home({res}) {
                   <StatusCheckbox text={'Independent'} check={setIndependentCheck}/>
                 </div>
               </div>
-  
+
             </div>
           </aside>
 
