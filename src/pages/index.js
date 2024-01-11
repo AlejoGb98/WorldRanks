@@ -13,27 +13,27 @@ import Layout from '@/components_layout/layout'
 import SearchBar from '@/components/searchBar'
 
 
-export default function Home({res}) {
+export default function Home({resOrderByPop}) {
 
   const [isLoading, setIsLoading] = useState(false)
  
   //API res reasign and useState
-  useEffect( () => {
+  /* useEffect( () => {
     if (res && res.length > 0){
       const orderByPop = [...res].sort((a,b) => b.population - a.population ) 
       setOriginalRes(orderByPop)
       setNewRes(orderByPop)
     } 
-  }, []) 
+  }, [])  */
 
   //Original response of Api to restart
-  const [originalRes, setOriginalRes] = useState()
+  const [originalRes, setOriginalRes] = useState(resOrderByPop)
 
   //The response of filters that will be maped and showed
-  const [newRes, setNewRes] = useState()
+  const [newRes, setNewRes] = useState(resOrderByPop)
 
   //The response that will acumulate infore be showed
-  const [resToUse, setResToUse] = useState(res)
+  const [resToUse, setResToUse] = useState(resOrderByPop)
 
 
   //Array that save the Continents to filter countries
@@ -63,8 +63,7 @@ export default function Home({res}) {
           const newArrayFiltered = [...resToUse].sort((a,b) => b.area - a.area )
           setNewRes(newArrayFiltered)
         }
-    
-    
+        
       setSavedRegionFilter(filterValue)
 
       setTimeout( () => {
@@ -98,7 +97,7 @@ export default function Home({res}) {
 
     if(filteredByContinent?.length > 0){
       setResToUse(() => {
-        const filteredCountries = originalRes.filter((country) => {
+        const filteredCountries = resToUse.filter((country) => {
           return filteredByContinent.some((continent) => continent === country.region);
         });
         return(filteredCountries)
@@ -114,26 +113,40 @@ export default function Home({res}) {
 
 
   //Filter by status
-  /* const statusFilter = () => {
+  const statusFilter = () => {
+    setIsLoading(true)
 
     if(independentCheck) {
-      const independentCountries = newRes.filter((country) => {
+      const independentCountries = resToUse.filter((country) => {
         return country.independent === true
       })
       setNewRes(independentCountries)
+
+    } else if (unitedNationCheck){
+      const unitedCountries = resToUse.filter((country) => {
+        return country.unMember === true
+      })
+      setNewRes(unitedCountries)
+
+    } else if(unitedNationCheck && independentCheck){
+      const uniAndIndCountries = resToUse.filter((country) => {
+        return country.independent && country.unMember === true
+      })
+      setNewRes(uniAndIndCountries)
     } else{
-      setNewRes(resPreFilter)
+      setNewRes(resToUse)
     }
-    continentFilter()
+    
+    setTimeout( () => {
+      setIsLoading(false)
+    }, 1000)
+
   } 
 
   useEffect(() => {
     statusFilter();
-  },[independentCheck, unitedNationCheck])
- */
-
-  
-  
+  },[independentCheck, unitedNationCheck, resToUse])
+ 
 
   return (
     <Layout
@@ -142,15 +155,12 @@ export default function Home({res}) {
       <main className='bg-black flex flex-col items-center min-h-screen'>
         
       <section className='w-11/12 border bg-black border-darkgrey rounded-lg py-4 px-6 relative mt-72 mb-12'>
-        <div className='flex justify-between items-center text-lightgrey mb-10'>
-          <p className='font-semibold text-lg'>Found {newRes?.length} countries</p>
-      
-          <SearchBar />
-        </div>
 
-        <div className={`grid grid-cols-4 h-full gap-4 ${isLoading ? 'min-h-screen' : ''}`}>
+        <div className={`grid grid-cols-4 h-full gap-8 ${isLoading ? 'min-h-screen' : ''}`}>
           <aside className='col-span-1'>
-            <div className='sticky top-10'>
+            <div className='sticky top-2'>
+
+              <p className='font-semibold text-lg text-lightgrey mt-1 mb-10'>Found {newRes?.length} countries</p>
               <div className='mb-10'>
                 <p className='text-lightgrey mb-2'>
                   Sort by
@@ -199,20 +209,24 @@ export default function Home({res}) {
 
           {/* ----------- COUNTRIE TABLES------------ */}
 
-          <div className='col-span-3'>
-            {/* {isLoading && <Spinner/>} */}
-            <table className='w-full text-left border-spacing'>
-              <thead className={`text-lightgrey border-b-2 ${isLoading ? 'hidden' : ''}`}>
-                <tr className=''>
-                  <th className='font-normal'>Flag</th>
+          <div className='col-span-3'> 
+          
+            <div className='flex justify-end'> 
+              <SearchBar /> 
+            </div>
+
+            <table className='w-full text-left'>
+              <thead className={`text-lightgrey sticky top-0 z-10 mt-12 h-12 ${isLoading ? 'hidden' : ''}`}>
+                <tr className='border-b-2 bg-black'>
+                  <th className='font-normal w-1/6'>Flag</th>
                   <th className='font-normal'>Name</th>
-                  <th className='font-normal'>Population</th>
-                  <th className='font-normal'>Area (km²)</th>
-                  <th className='font-normal'>Region</th>
+                  <th className='font-normal w-1/6'>Population</th>
+                  <th className='font-normal w-1/6'>Area (km²)</th>
+                  <th className='font-normal w-1/6'>Region</th>
                 </tr>
               </thead>
 
-              <tbody className=''>
+              <tbody>
                 
                 {isLoading ? <Spinner/> :
                   newRes?.map((country) => (
@@ -245,9 +259,11 @@ export async function getServerSideProps(){
   const resp = await fetch(`https://restcountries.com/v3.1/all`)
   const res = await resp.json();
 
+  const resOrderByPop = [...res].sort((a,b) => b.population - a.population )
+
   return{
     props:{
-      res
+      resOrderByPop
     } 
   }
 }

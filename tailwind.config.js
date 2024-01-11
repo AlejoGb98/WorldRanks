@@ -19,7 +19,8 @@ module.exports = {
       'darkgrey': '#282B30',
       'lightgrey': '#6C727F',
       'blue': '#4E80EE',
-      'white': '#D2D5DA'
+      'white': '#D2D5DA',
+      'ultrablack': '#000'
     }
   },
   plugins: [],

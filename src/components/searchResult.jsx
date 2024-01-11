@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const SearchResult = ({name, flag, error}) => {
+const SearchResult = ({name, flag}) => {
     
   return (
     <Link href={`/country/${name}`}>

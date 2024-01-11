@@ -22,14 +22,14 @@ const SearchBar = () => {
         const res = await resp.json();
       
         const searchResults = res.filter((country) => {
-          return value && country && country.name.common.toLowerCase().includes(value.toLowerCase())
+          return value && country && country.name.common.toLowerCase().includes(value.toLowerCase()) || country.region.toLowerCase().includes(value.toLowerCase()) /* || country.subregion.toLowerCase().includes(value.toLowerCase()) */
         })
         
         setSearchResult(searchResults)
     }
 
   return (
-    <div className={`flex gap-2 bg-darkgrey py-2 w-1/4 relative ${search ? 'rounded-t-xl' : 'rounded-xl'}`}>
+    <div className={`flex gap-2 bg-darkgrey py-2 w-2/6 right-0 text-lightgrey relative z-20 mb-4 ${search ? 'rounded-t-xl' : 'rounded-xl'}`}>
         <Image src={Search} width={25} height={25} alt='Search' className='mx-2'/>
         <input type='text' placeholder='Search by Name, Region, Subregion' value={search}
                 className='placeholder-lightgrey text-sm font-medium bg-darkgrey w-full outline-none mx-2'

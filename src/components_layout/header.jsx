@@ -5,7 +5,7 @@ import Logo from '../images/Logo.png'
 const Header = () => {
   return (
     <div className='flex items-center absolute justify-center'>
-          <Image src={NavImage} width={2000} height={2000} alt='Image of top'
+          <Image src={NavImage} width={4000} height={4000} alt='Image of top'
                 className=''      
           />
 
