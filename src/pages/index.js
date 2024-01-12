@@ -255,7 +255,7 @@ export default function Home({resOrderByPop}) {
 }
 
 
-export async function getServerSideProps(){
+export async function getStaticProps(){
   const resp = await fetch(`https://restcountries.com/v3.1/all`)
   const res = await resp.json();
 

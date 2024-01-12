@@ -13,8 +13,7 @@ const Countrie = ({countryData, allCountriesData}) => {
 
   const currencyName = Object.values(currencies)
   const languageName = Object.values(languages)
-
-  //console.log(borders)
+  
 
   useEffect(() => {
     setBorderData(() => {
@@ -124,7 +123,6 @@ export async function getStaticProps({params: {url}}){
       fetch(`https://restcountries.com/v3.1/name/${url}?fullText=true`).then(response => response.json()),
       fetch(`https://restcountries.com/v3.1/all`).then(response => response.json())
     ])
-    console.log(url)
     return{
         props:{
             countryData,

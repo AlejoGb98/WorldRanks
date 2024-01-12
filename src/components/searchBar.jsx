@@ -10,7 +10,6 @@ const SearchBar = () => {
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState()
 
-    console.log(searchResult)
     //Fetch data to Searchbar
     const handleSearch = (value) => {
         getDataSearch(value)
