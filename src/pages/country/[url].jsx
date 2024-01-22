@@ -11,9 +11,13 @@ const Countrie = ({countryData, allCountriesData}) => {
 
   const [bordersData, setBorderData] = useState()
 
-  const currencyName = Object.values(currencies)
-  const languageName = Object.values(languages)
   
+   const currencyName = currencies && Object.values(currencies)
+  const languageName = languages && Object.values(languages)
+ 
+  console.log(currencies)
+  
+
 
   useEffect(() => {
     setBorderData(() => {
@@ -65,32 +69,32 @@ const Countrie = ({countryData, allCountriesData}) => {
 
           <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Capital</p>
-            <p className="text-white">{capital}</p>
+            <p className="text-white">{capital ? capital : 'No capital info '}</p>
           </div>
 
           <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Subregion</p>
-            <p className="text-white">{subregion}</p>
+            <p className="text-white">{subregion ? subregion : 'No subregion info'}</p>
           </div>
 
           <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Language</p>
-            <p className="text-white">{languageName[0]}</p>
+            <p className="text-white">{languageName ? languageName[0] : "No language info"}</p>
           </div>
 
           <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Currencies</p>
-            <p className="text-white">{currencyName[0].name}</p>
+            <p className="text-white">{currencyName && currencyName[0].name}</p>
           </div>
 
           <div className="flex justify-between w-full text-lg py-6 border-y-2 px-6 border-darkgrey">
-            <p className="text-lightgrey">Continents</p>
-            <p className="text-white">{continents}</p>
+            <p className="text-lightgrey">Continent</p>
+            <p className="text-white">{continents ? continents : "No continent info"}</p>
           </div>
 
           <div className={`w-full text-lg py-6 px-6 border-darkgrey ${bordersData?.length == 0 && 'flex justify-between' }`}>
             <p className="text-lightgrey mb-6">Neighbouring Countries</p>
-            <div className="flex max-w-fit overflow-scroll">
+            <div className={`flex max-w-fit ${bordersData?.length > 7 && 'overflow-x-scroll'}`}>
               {
                 bordersData?.length > 0 ? 
                 bordersData.map((country) => (

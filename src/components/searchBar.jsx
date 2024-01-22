@@ -34,7 +34,7 @@ const SearchBar = () => {
                 className={`placeholder-lightgrey text-sm font-medium bg-darkgrey w-full outline-none mx-2 ${search && 'text-white'}`}
                 onChange={ e => handleSearch(e.target.value)}/>
         
-        <div className={`absolute w-full top-10 bg-darkgrey max-h-96 overflow-scroll rounded-b-xl ${search && 'border-t-2 border-lightgrey'}`}>
+        <div className={`absolute w-full top-10 bg-darkgrey max-h-96 overflow-y-auto rounded-b-xl ${search && 'border-t-2 border-lightgrey'}`}>
             {
                 search && searchResult?.length === 0 ?
                     <p className={`text-white px-6 py-3 ${!search && 'border-t-2 border-lightgrey'}`}>No matches found</p>
