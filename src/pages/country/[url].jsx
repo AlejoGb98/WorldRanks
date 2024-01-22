@@ -12,13 +12,10 @@ const Countrie = ({countryData, allCountriesData}) => {
   const [bordersData, setBorderData] = useState()
 
   
-   const currencyName = currencies && Object.values(currencies)
+  const currencyName = currencies && Object.values(currencies)
   const languageName = languages && Object.values(languages)
- 
-  console.log(currencies)
   
-
-
+ 
   useEffect(() => {
     setBorderData(() => {
       const bordersData = allCountriesData.filter(data => {
