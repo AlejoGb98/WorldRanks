@@ -12,8 +12,8 @@ const Countrie = ({countryData, allCountriesData}) => {
   const [bordersData, setBorderData] = useState()
 
   
-  const currencyName = currencies?.Object.values(currencies)
-  const languageName = languages?.Object.values(languages)
+  const currencyName = currencies && Object.values(currencies)
+  const languageName = languages && Object.values(languages)
   
  
   useEffect(() => {
@@ -81,7 +81,7 @@ const Countrie = ({countryData, allCountriesData}) => {
 
           <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Currencies</p>
-            <p className="text-white">{currencyName != undefined && currencyName[0].name}</p>
+            <p className="text-white">{currencyName != undefined ? currencyName[0].name : "No currency info"}</p>
           </div>
 
           <div className="flex justify-between w-full text-lg py-6 border-y-2 px-6 border-darkgrey">
