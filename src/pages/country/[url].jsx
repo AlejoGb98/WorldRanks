@@ -40,58 +40,58 @@ const Countrie = ({countryData, allCountriesData}) => {
           <p className="text-lg text-white absolute top-96 left-12 hover:scale-110 transition-all ">Go Home</p>
         </Link>}
 
-        <section className="w-7/12 border bg-black border-darkgrey rounded-lg py-6 
-                            relative mt-72 mb-24 flex flex-col items-center shadow-ultrablack shadow-2xl">
+        <section className="w-full md:w-7/12 border bg-black border-darkgrey rounded-lg md:py-6
+                            relative md:mt-72 md:mb-24 flex flex-col items-center shadow-ultrablack shadow-2xl">
 
-          <Image src={flags.svg} width={1000} height={1000} alt={`${name.common} flag`} className="w-80 h-60 rounded-xl object-cover relative -top-16"/>
+          <Image src={flags.svg} width={1000} height={1000} alt={`${name.common} flag`} className="w-40 h-28 md:w-80 md:h-60 rounded-xl object-cover relative -top-6 md:-top-16"/>
           
-          <h2 className="text-white text-5xl">{name.common}</h2>
-          <h3 className="text-white text-2xl">{name.official}</h3>
+          <h2 className="text-white text-2xl md:text-5xl">{name.common}</h2>
+          <h3 className="text-white text-lg md:text-2xl">{name.official}</h3>
 
-          <div className="flex justify-around w-full text-white text-lg font-light px-12 my-12">
-            <div className="flex w-fit bg-darkgrey py-4 px-6 rounded-2xl gap-4">
+          <div className="flex justify-around w-full text-white text-xs md:text-lg font-light md:px-12 my-12">
+            <div className="flex w-fit bg-darkgrey py-2 md:py-4 px-2 md:px-6 rounded-2xl gap-2 md:gap-4 items-center">
 
-              <p className=" border-r-2 pr-4 border-black">Population</p>
+              <p className="border-r-2 pr-2 md:pr-4 border-black">Population</p>
               <p>{formatToUS(population)}</p>
 
             </div>
 
-            <div className="flex w-fit bg-darkgrey py-4 px-8 rounded-2xl gap-4">
+            <div className="flex w-fit bg-darkgrey py-2 md:py-4 px-2 md:px-6 rounded-2xl gap-2 md:gap-4 items-center">
 
-              <p className="border-r-2 pr-4 border-black"> Area (km²)</p>
+              <p className="border-r-2 pr-2 md:pr-4 border-black"> Area (km²)</p>
               <p>{formatToUS(area)}</p>
 
             </div>
           </div>
 
-          <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
+          <div className="flex justify-between w-full text-sm md:text-lg py-3 md:py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Capital</p>
             <p className="text-white">{capital ? capital : 'No capital info '}</p>
           </div>
 
-          <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
+          <div className="flex justify-between w-full text-sm md:text-lg py-3 md:py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Subregion</p>
             <p className="text-white">{subregion ? subregion : 'No subregion info'}</p>
           </div>
 
-          <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
+          <div className="flex justify-between w-full text-sm md:text-lg py-3 md:py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Language</p>
             <p className="text-white">{languageName != undefined ? languageName[0] : "No language info"}</p>
           </div>
 
-          <div className="flex justify-between w-full text-lg py-6 border-t-2 px-6 border-darkgrey">
+          <div className="flex justify-between w-full text-sm md:text-lg py-3 md:py-6 border-t-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Currencies</p>
             <p className="text-white">{currencyName != undefined ? currencyName[0].name : "No currency info"}</p>
           </div>
 
-          <div className="flex justify-between w-full text-lg py-6 border-y-2 px-6 border-darkgrey">
+          <div className="flex justify-between w-full text-sm md:text-lg py-3 md:py-6 border-y-2 px-6 border-darkgrey">
             <p className="text-lightgrey">Continent</p>
             <p className="text-white">{continents ? continents : "No continent info"}</p>
           </div>
 
-          <div className={`w-full text-lg py-6 px-6 border-darkgrey ${bordersData?.length == 0 && 'flex justify-between' }`}>
+          <div className={`w-full text-sm md:text-lg py-3 md:py-6 px-6 border-darkgrey ${bordersData?.length == 0 && 'flex justify-between' }`}>
             <p className="text-lightgrey mb-6">Neighbouring Countries</p>
-            <div className={`flex max-w-fit ${bordersData?.length > 7 && 'overflow-x-scroll'}`}>
+            <div className='flex max-w-fit overflow-auto mb-2 md:mb-0'>
               {
                 bordersData?.length > 0 ? 
                 bordersData.map((country) => (
