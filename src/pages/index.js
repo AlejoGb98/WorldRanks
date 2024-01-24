@@ -15,6 +15,14 @@ import SearchBar from '@/components/searchBar'
 
 export default function Home({resOrderByPop}) {
 
+  const [screenWidth, setScreenWidth] = useState();
+
+  useEffect(() => {
+    if(typeof window !== 'undefined'){
+      setScreenWidth(window.innerWidth)
+    }
+  },[])
+
   const [isLoading, setIsLoading] = useState(false)
  
   //API res reasign and useState
@@ -154,14 +162,22 @@ export default function Home({resOrderByPop}) {
     >
       <main className='bg-black flex flex-col items-center min-h-screen'>
         
-      <section className='w-11/12 border bg-black border-darkgrey rounded-lg py-4 px-6 relative mt-72 mb-12'>
+      <section className='sm:w-11/12 border bg-black border-darkgrey rounded-lg py-4 px-6 relative mb-12
+                          sm:mt-36 lg:mt-48 xl:mt-72'>
 
-        <div className={`grid grid-cols-4 h-full gap-8 ${isLoading ? 'min-h-screen' : ''}`}>
-          <aside className='col-span-1'>
+        <div className={`grid md:grid-cols-4 h-full sm:gap-8 ${isLoading ? 'min-h-screen' : ''}`}>
+          <aside className='sm:col-span-1 h-fit text-xs 
+                            md:text-lg lg:text-xl'>
             <div className='sticky top-2'>
 
-              <p className='font-semibold text-lg text-lightgrey mt-1 mb-10'>Found {newRes?.length} countries</p>
-              <div className='mb-10'>
+              <div className='flex justify-between'>
+                <p className='font-semibold text-xs text-lightgrey mt-1 mb-10
+                            md:text-lg lg:text-xl'>Found {newRes?.length} countries</p>
+                {screenWidth <= 640 && <SearchBar/>}
+              </div>
+              
+
+              <div className='mb-4 sm:mb-10 sm:w-full'>
                 <p className='text-lightgrey mb-2'>
                   Sort by
                 </p>
@@ -177,7 +193,7 @@ export default function Home({resOrderByPop}) {
                 </select>
               </div>
 
-              <div className='mb-10'>
+              <div className='mb-4 sm:mb-10'>
                 <p className='text-lightgrey mb-2'>
                   Region
                 </p>
@@ -209,20 +225,22 @@ export default function Home({resOrderByPop}) {
 
           {/* ----------- COUNTRIE TABLES------------ */}
 
-          <div className='col-span-3'> 
+          <div className='sm:col-span-3'> 
           
-            <div className='flex justify-end'> 
+            {screenWidth > 640 && <div className='flex justify-end'> 
               <SearchBar /> 
-            </div>
+            </div>}
 
             <table className='w-full text-left'>
               <thead className={`text-lightgrey sticky top-0 z-10 mt-12 h-12 ${isLoading ? 'hidden' : ''}`}>
                 <tr className='border-b-2 bg-black'>
                   <th className='font-normal w-1/6'>Flag</th>
-                  <th className='font-normal'>Name</th>
+                  <th className='font-normal w-1/6 md:w-2/6'>Name</th>
                   <th className='font-normal w-1/6'>Population</th>
                   <th className='font-normal w-1/6'>Area (km²)</th>
-                  <th className='font-normal w-1/6'>Region</th>
+                  {
+                    screenWidth > 1024 && <th className='font-normal w-1/6'>Region</th>
+                  }
                 </tr>
               </thead>
 
@@ -236,7 +254,8 @@ export default function Home({resOrderByPop}) {
                     name={country.name.common}
                     population={country.population}
                     area={country.area}
-                    region={country.region}                    
+                    region={country.region}     
+                    screenWidth={screenWidth}               
                   />
                 ))}
                 
