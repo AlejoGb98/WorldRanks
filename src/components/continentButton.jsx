@@ -20,7 +20,7 @@ const ContinentButton = ({text, filter}) => {
   return (
     <input value={text} type='button'
             onClick={ e => selectContinent(e.target.value)}
-            className={`${text} font-semibold text-lightgrey py-2 px-3 rounded-xl my-1
+            className={`${text} font-semibold text-lightgrey py-1 md:py-2 px-2 md:px-3 rounded-xl my-1
                       transition-all duration-200 hover:text-white hover:bg-lightgrey`}
     />
   )

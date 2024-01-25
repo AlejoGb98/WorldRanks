@@ -162,7 +162,7 @@ export default function Home({resOrderByPop}) {
     >
       <main className='bg-black flex flex-col items-center min-h-screen'>
         
-      <section className='sm:w-11/12 border bg-black border-darkgrey md:rounded-lg py-4 px-6 relative mb-12
+      <section className=' w-full sm:w-11/12 border bg-black border-darkgrey md:rounded-lg py-4 px-6 relative mb-12
                           sm:mt-36 lg:mt-48 xl:mt-72'>
 
         <div className={`grid md:grid-cols-4 h-full sm:gap-8 ${isLoading ? 'min-h-screen' : ''}`}>
@@ -198,7 +198,7 @@ export default function Home({resOrderByPop}) {
                   Region
                 </p>
 
-                <div className='flex flex-wrap gap-x-2'>
+                <div className='flex flex-wrap gap-x-1 md:gap-x-2'>
                   <ContinentButton text={'Americas'} filter={continentFilter}/>
                   <ContinentButton text={'Antartic'} filter={continentFilter}/>
                   <ContinentButton text={'Africa'} filter={continentFilter}/>
