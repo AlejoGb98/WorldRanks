@@ -40,7 +40,7 @@ const Countrie = ({countryData, allCountriesData}) => {
           <p className="text-lg text-white absolute top-96 left-12 hover:scale-110 transition-all ">Go Home</p>
         </Link>}
 
-        <section className="w-full md:w-7/12 border bg-black border-darkgrey rounded-lg md:py-6
+        <section className="w-full md:w-7/12 border bg-black border-darkgrey md:rounded-lg md:py-6
                             relative md:mt-72 md:mb-24 flex flex-col items-center shadow-ultrablack shadow-2xl">
 
           <Image src={flags.svg} width={1000} height={1000} alt={`${name.common} flag`} className="w-40 h-28 md:w-80 md:h-60 rounded-xl object-cover relative -top-6 md:-top-16"/>

@@ -162,7 +162,7 @@ export default function Home({resOrderByPop}) {
     >
       <main className='bg-black flex flex-col items-center min-h-screen'>
         
-      <section className='sm:w-11/12 border bg-black border-darkgrey rounded-lg py-4 px-6 relative mb-12
+      <section className='sm:w-11/12 border bg-black border-darkgrey md:rounded-lg py-4 px-6 relative mb-12
                           sm:mt-36 lg:mt-48 xl:mt-72'>
 
         <div className={`grid md:grid-cols-4 h-full sm:gap-8 ${isLoading ? 'min-h-screen' : ''}`}>
